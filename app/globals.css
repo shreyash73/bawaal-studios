@@ -1,0 +1,407 @@
+@import "tailwindcss";
+
+/* ============================================================
+   BAWAAL STUDIOS — DESIGN SYSTEM
+   Tokens are derived from Brand Book Sections 07, 08 and 09.
+   Defaults are cleared deliberately: an off-system colour or a
+   border radius is not a mistake you can make in this codebase.
+   ============================================================ */
+
+@theme {
+  --color-*: initial;
+  --radius-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --ease-*: initial;
+
+  /* -- Section 07 · Colour ---------------------------------- */
+  --color-black: #0a0a0a; /* Bawaal Black   — foundation, the screen before it lights */
+  --color-white: #f5f0eb; /* Studio White   — warm, never optical white */
+  --color-crimson: #d72638; /* Bawaal Crimson — the dot of light in the aperture */
+  --color-navy: #10102a; /* Midnight Navy  — cinematic depth */
+  --color-smoke: #3d3d3d; /* Dark Smoke     — sophisticated neutral */
+  --color-gold: #c9a84c; /* Gold Thread    — earns its appearances */
+  --color-amber: #f4a261; /* Ember Amber    — the human pulse */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* -- Section 08 · Typography ------------------------------- */
+  --font-display:
+    "Neue Haas Grotesk Display", var(--font-inter), "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  --font-text:
+    "Neue Haas Grotesk Text", var(--font-inter), "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+
+  /* Display: 110% leading, −1% to −3% tracking (Section 08 spacing rules) */
+  --text-display-xl: clamp(2.75rem, 9vw, 7.5rem);
+  --text-display-xl--line-height: 1.1;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-xl--font-weight: 900;
+
+  --text-display-l: clamp(1.875rem, 4.8vw, 4.5rem);
+  --text-display-l--line-height: 1.1;
+  --text-display-l--letter-spacing: -0.025em;
+  --text-display-l--font-weight: 900;
+
+  --text-display-m: clamp(1.375rem, 2.6vw, 2.75rem);
+  --text-display-m--line-height: 1.15;
+  --text-display-m--letter-spacing: -0.02em;
+  --text-display-m--font-weight: 700;
+
+  --text-lead: clamp(1.0625rem, 1.6vw, 1.5rem);
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.01em;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-body--letter-spacing: -0.005em;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+
+  /* 10px · ALL CAPS · +300 tracking */
+  --text-label: 0.625rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.3em;
+  --text-label--font-weight: 700;
+
+  /* -- Section 09 · Motion ----------------------------------- */
+  /* Weighted ease-in-out. Nothing bounces or pops. */
+  --ease-cut: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-breathe: cubic-bezier(0.33, 1, 0.68, 1);
+
+  --duration-type: 200ms; /* text enters fast, holds, exits fast */
+  --duration-image: 700ms; /* images breathe slower (600–800ms) */
+  --duration-iris: 900ms;
+  --duration-whip: 260ms;
+  --duration-cut: 80ms;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-radius: 0; /* Section 15 — no rounded anything, anywhere */
+    min-width: 0;
+  }
+
+  html {
+    background: var(--color-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: auto; /* Lenis owns the scroll */
+    /* Type is meant to run past the frame edge — `clip` absorbs that without
+       creating a scroll container, so the pinned scenes keep working. */
+    overflow-x: clip;
+  }
+
+  body {
+    background: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-text);
+    font-size: var(--text-body);
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-crimson);
+    color: var(--color-white);
+  }
+
+  /* Accessibility · Section 27 — focus is never sacrificed for effect */
+  :focus-visible {
+    outline: 2px solid var(--color-crimson);
+    outline-offset: 3px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(61 61 61 / 0.7);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-crimson);
+  }
+
+  /* The custom cursor replaces the system one only where it is active
+     and only on real pointer devices. Text inputs always keep theirs. */
+  @media (hover: hover) and (pointer: fine) {
+    body[data-cursor="on"],
+    body[data-cursor="on"] a,
+    body[data-cursor="on"] button {
+      cursor: none;
+    }
+    body[data-cursor="on"] input,
+    body[data-cursor="on"] textarea {
+      cursor: text;
+    }
+  }
+}
+
+/* ============================================================
+   FILM GRAIN · Section 09
+   8–12% fine grain. Stepped, never smoothly interpolated —
+   real grain resolves per frame. Smooth noise shimmers and
+   instantly reads as a CSS filter rather than film.
+   ============================================================ */
+
+.grain {
+  position: fixed;
+  inset: -60%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.09;
+  will-change: transform;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-step 1.2s steps(8) infinite;
+}
+
+@keyframes grain-step {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  12.5% {
+    transform: translate3d(-3%, -4%, 0);
+  }
+  25% {
+    transform: translate3d(2%, -2%, 0);
+  }
+  37.5% {
+    transform: translate3d(-4%, 3%, 0);
+  }
+  50% {
+    transform: translate3d(3%, 4%, 0);
+  }
+  62.5% {
+    transform: translate3d(-2%, 2%, 0);
+  }
+  75% {
+    transform: translate3d(4%, -3%, 0);
+  }
+  87.5% {
+    transform: translate3d(-3%, -2%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ============================================================
+   FRAME WITHIN A FRAME · Section 09, motif 01
+   Corner crop marks. Structural, never decorative.
+   ============================================================ */
+
+.crop-marks {
+  position: relative;
+}
+.crop-marks::after {
+  content: "";
+  position: absolute;
+  inset: var(--crop-inset, 14px);
+  pointer-events: none;
+  --c: var(--crop-colour, rgb(245 240 235 / 0.28));
+  --len: var(--crop-length, 18px);
+  background:
+    linear-gradient(var(--c), var(--c)) left top / 1px var(--len) no-repeat,
+    linear-gradient(var(--c), var(--c)) left top / var(--len) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) right top / 1px var(--len) no-repeat,
+    linear-gradient(var(--c), var(--c)) right top / var(--len) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) left bottom / 1px var(--len) no-repeat,
+    linear-gradient(var(--c), var(--c)) left bottom / var(--len) 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / 1px var(--len) no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / var(--len) 1px no-repeat;
+}
+
+/* ============================================================
+   APERTURE · Section 09, motif 02
+   The lens opens to reveal; it closes to end.
+   ============================================================ */
+
+.aperture-open {
+  animation: aperture var(--duration-iris) var(--ease-cut) forwards;
+}
+@keyframes aperture {
+  from {
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    clip-path: circle(140% at 50% 50%);
+  }
+}
+
+.aperture-close {
+  animation: aperture-out 600ms var(--ease-cut) forwards;
+}
+@keyframes aperture-out {
+  from {
+    clip-path: circle(140% at 50% 50%);
+  }
+  to {
+    clip-path: circle(0% at 50% 50%);
+  }
+}
+
+/* ============================================================
+   COLD OPEN · Scene 00
+   ============================================================ */
+
+@keyframes coldopen-breathe {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    transform: scale(2.4);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Text enters fast and lands. It does not drift, slide far, or bounce. */
+@keyframes coldopen-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.14em, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Sound leads picture — the waveform draws itself in. */
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================================
+   MARQUEE · Section 09 — collaborators, freeze-frame on hover
+   ============================================================ */
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 48s) linear infinite;
+  will-change: transform;
+}
+.marquee-track[data-frozen="true"] {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ============================================================
+   TYPE UTILITIES
+   ============================================================ */
+
+/* Oversized type deliberately butting against / past the frame edge.
+   Section 09, motif 03 — typographic tension. */
+.edge-left {
+  margin-left: -0.055em;
+}
+.edge-right {
+  margin-right: -0.055em;
+}
+
+.hanging-caps {
+  text-transform: uppercase;
+  font-feature-settings: "kern" 1;
+}
+
+/* ============================================================
+   THE BAWAAL SIGNATURE GRADE · Section 10
+   Applied as a filter chain so the POST scene can transition
+   between ungraded and graded states on the very same frame.
+   ============================================================ */
+
+.grade-raw {
+  filter: saturate(1.18) contrast(0.82) brightness(1.16);
+}
+.grade-bawaal {
+  filter: saturate(0.9) contrast(1.14) brightness(0.94) sepia(0.06);
+}
+.grade-transition {
+  transition: filter var(--duration-image) var(--ease-breathe);
+}
+
+/* ============================================================
+   REDUCED MOTION · Section 27
+   Not a switch that disables the site — a second design.
+   Darkness, scale and composition carry it; they always did.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    animation: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .aperture-open,
+  .aperture-close {
+    animation: none;
+    clip-path: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip link — visible the moment it is focused, never before */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  transition: transform 150ms var(--ease-cut);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}

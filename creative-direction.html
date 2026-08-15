@@ -1,0 +1,744 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bawaal Studios — Website Creative Direction</title>
+<style>
+  :root{
+    --black:#0A0A0A; --white:#F5F0EB; --crimson:#D72638;
+    --navy:#10102A; --smoke:#3D3D3D; --gold:#C9A84C; --amber:#F4A261;
+    --w60:rgba(245,240,235,.60); --w40:rgba(245,240,235,.40);
+    --w20:rgba(245,240,235,.20); --w10:rgba(245,240,235,.10);
+    --font:"Neue Haas Grotesk Display","Neue Haas Grotesk","Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  html{background:var(--black);-webkit-font-smoothing:antialiased}
+  body{background:var(--black);color:var(--white);font-family:var(--font);font-weight:400;
+       font-size:16px;line-height:1.5;letter-spacing:-0.005em;overflow-x:hidden}
+
+  /* ---- film grain: stepped, not smooth. real grain is per-frame. ---- */
+  .grain{position:fixed;inset:-60%;pointer-events:none;z-index:9999;opacity:.085;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:g 1.2s steps(8) infinite}
+  @keyframes g{
+    0%{transform:translate(0,0)}12.5%{transform:translate(-3%,-4%)}25%{transform:translate(2%,-2%)}
+    37.5%{transform:translate(-4%,3%)}50%{transform:translate(3%,4%)}62.5%{transform:translate(-2%,2%)}
+    75%{transform:translate(4%,-3%)}87.5%{transform:translate(-3%,-2%)}100%{transform:translate(0,0)}}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+
+  /* ---- type system, straight off the brand book scale ---- */
+  .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3em;
+         color:var(--w40);display:block}
+  .label.crimson{color:var(--crimson)}
+  .label.gold{color:var(--gold)}
+  .label.amber{color:var(--amber)}
+  .xl{font-size:clamp(44px,8.5vw,104px);font-weight:900;line-height:1.02;letter-spacing:-0.035em;
+      text-transform:uppercase}
+  .l{font-size:clamp(30px,4.6vw,58px);font-weight:900;line-height:1.06;letter-spacing:-0.03em;
+     text-transform:uppercase}
+  .m{font-size:clamp(21px,2.5vw,32px);font-weight:700;line-height:1.14;letter-spacing:-0.02em}
+  .lead{font-size:clamp(17px,1.55vw,21px);line-height:1.5;letter-spacing:-0.01em;color:var(--white);
+        max-width:62ch}
+  p{max-width:68ch;color:var(--w60);margin:0 0 .75em}
+  p.on{color:var(--white)}
+  strong{color:var(--white);font-weight:700}
+  em{font-style:italic;color:var(--white)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;color:var(--gold);
+       letter-spacing:0}
+
+  /* ---- structural rules only. never decorative. ---- */
+  .rule{height:1px;background:var(--w10);border:0;margin:0}
+  .rule.c{height:3px;background:var(--crimson);width:64px}
+
+  section{padding:clamp(64px,9vw,128px) 0;border-top:1px solid var(--w10)}
+  .sechead{display:flex;gap:clamp(16px,4vw,48px);align-items:baseline;margin-bottom:clamp(28px,4vw,52px);
+           flex-wrap:wrap}
+  .sechead .idx{font-size:10px;font-weight:700;letter-spacing:.3em;color:var(--crimson);
+                padding-top:.7em;flex:0 0 auto}
+
+  /* ---- cover ---- */
+  .cover{min-height:88vh;display:flex;flex-direction:column;justify-content:space-between;
+         padding:clamp(28px,5vw,56px) 0 clamp(40px,6vw,72px);border-top:0}
+  .aperture{width:clamp(56px,9vw,92px);height:clamp(56px,9vw,92px);border:1px solid var(--w20);
+            border-radius:50%;position:relative;display:grid;place-items:center}
+  .aperture::after{content:"";width:9px;height:9px;background:var(--crimson);border-radius:50%;
+            animation:pulse 3.2s cubic-bezier(.83,0,.17,1) infinite}
+  @keyframes pulse{0%,70%{transform:scale(1);opacity:1}85%{transform:scale(2.6);opacity:.35}100%{transform:scale(1);opacity:1}}
+
+  /* ---- blocks ---- */
+  .num{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,32px);
+       padding:22px 0;border-top:1px solid var(--w10);align-items:start}
+  .num .n{font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--crimson);padding-top:.45em}
+  .num h4{font-size:clamp(16px,1.7vw,20px);font-weight:700;letter-spacing:-0.015em;margin-bottom:.35em}
+  .num p{margin:0}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 4px}
+  th{text-align:left;font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+     color:var(--w40);padding:0 14px 10px 0;border-bottom:1px solid var(--w20);vertical-align:bottom}
+  td{padding:12px 14px 12px 0;border-bottom:1px solid var(--w10);color:var(--w60);vertical-align:top;
+     line-height:1.4}
+  td:first-child{color:var(--white);font-weight:700;white-space:nowrap}
+  td b{color:var(--white);font-weight:700}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  /* ---- scene cards ---- */
+  .scene{border-top:1px solid var(--w10);padding:clamp(26px,4vw,44px) 0;
+         display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+  .scene .top{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+  .scene .sn{font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--crimson)}
+  .scene .mode{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--w40);
+        margin-left:auto;text-transform:uppercase}
+  .chips{display:flex;gap:6px;align-items:center}
+  .chip{width:13px;height:13px;display:inline-block;border:1px solid rgba(245,240,235,.25)}
+  ul.beats{list-style:none;max-width:70ch}
+  ul.beats li{color:var(--w60);padding:5px 0 5px 18px;position:relative;font-size:15px;line-height:1.45}
+  ul.beats li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;
+        background:var(--crimson)}
+  ul.beats li b{color:var(--white);font-weight:700}
+  .cut{font-size:10px;font-weight:700;letter-spacing:.3em;color:var(--w40);
+       padding:10px 0;text-transform:uppercase}
+  .cut span{color:var(--crimson)}
+
+  /* ---- swatches ---- */
+  .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:1px;
+      background:var(--w10);border:1px solid var(--w10)}
+  .sw > div{background:var(--black);padding:14px}
+  .sw .box{height:74px;margin-bottom:12px;border:1px solid rgba(245,240,235,.14)}
+  .sw .nm{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+  .sw .hx{font-size:11px;color:var(--w40);letter-spacing:.06em;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .sw .use{font-size:11px;color:var(--w40);margin-top:7px;line-height:1.35}
+
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,3vw,40px)}
+
+  .tree{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.75;
+        color:var(--w60);white-space:pre;overflow-x:auto;border-left:2px solid var(--crimson);
+        padding:16px 0 16px 20px;margin:6px 0 0}
+  .tree b{color:var(--white);font-weight:700}
+  .tree i{color:var(--gold);font-style:normal}
+
+  .ask{border-top:1px solid var(--w20);padding:20px 0;display:grid;
+       grid-template-columns:auto 1fr;gap:clamp(14px,3vw,28px);align-items:start}
+  .ask .n{font-size:10px;font-weight:700;letter-spacing:.24em;color:var(--gold);padding-top:.45em}
+  .ask h4{font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.45em}
+  .ask .must{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--crimson);
+       text-transform:uppercase;margin-bottom:.5em;display:block}
+
+  .flag{border-left:2px solid var(--gold);padding:2px 0 2px 20px;margin:22px 0}
+  .flag .label{margin-bottom:6px}
+
+  .endslate{min-height:52vh;display:grid;place-items:center;text-align:center;border-top:1px solid var(--w10)}
+  .endslate .tag{color:var(--gold);font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+        font-weight:700;margin-top:16px}
+
+  .ph{border:1px dashed var(--w20);padding:14px 16px;font-size:11px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--w40);font-weight:700;display:inline-block}
+
+  @media (prefers-reduced-motion:reduce){
+    .grain{animation:none}.aperture::after{animation:none}
+  }
+</style>
+
+<div class="grain" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <!-- ============ COVER ============ -->
+  <header class="cover">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px">
+      <div>
+        <span class="label crimson">Bawaal Studios · Bangalore</span>
+        <span class="label" style="margin-top:6px">Website · Creative Direction · v1</span>
+      </div>
+      <div class="aperture" aria-hidden="true"></div>
+    </div>
+
+    <div>
+      <h1 class="xl" style="margin-bottom:6px">The Edit<br>Is The<br>Message.</h1>
+      <hr class="rule c" style="margin:28px 0 24px">
+      <p class="lead" style="color:var(--white)">
+        The site is not a set of pages. It is one film, cut into eleven scenes.
+        Scroll is the edit. Every section boundary is a real cut — to black, through an
+        aperture, across a whip pan. Nothing dissolves because dissolving was easy.
+      </p>
+    </div>
+
+    <div style="display:flex;gap:clamp(20px,5vw,64px);flex-wrap:wrap">
+      <span class="label">Source of truth<br><span style="color:var(--white);letter-spacing:.14em">Brand Book v2.0</span></span>
+      <span class="label">Stage<br><span style="color:var(--white);letter-spacing:.14em">Pre-build · A–G</span></span>
+      <span class="label">Status<br><span style="color:var(--crimson);letter-spacing:.14em">Awaiting sign-off</span></span>
+    </div>
+  </header>
+
+  <!-- ============ A ============ -->
+  <section id="a">
+    <div class="sechead">
+      <span class="idx">A</span>
+      <div>
+        <h2 class="l">Creative Direction</h2>
+        <p class="lead" style="margin-top:14px">Ten decisions. Everything downstream obeys them.</p>
+      </div>
+    </div>
+
+    <div class="num"><span class="n">01</span><div>
+      <h4>One film, eleven scenes — not a page with sections</h4>
+      <p>The visitor holds the razor. Section boundaries are edits from the brand book's own vocabulary: <b>cut to black</b>, <b>aperture iris</b>, <b>whip pan</b>, <b>freeze frame + text</b>. Four transition types, used with reason. A fade is what you use when you haven't decided what the cut means.</p>
+    </div></div>
+
+    <div class="num"><span class="n">02</span><div>
+      <h4>Darkness is the default state. Light is earned.</h4>
+      <p><code>#0A0A0A</code> is not a background colour — it is the cinema screen before the projector fires. Every colour shift on the site is one of the <b>five approved pairings</b> from Section 07, assigned to a scene like a lighting plan. There is no sixth combination. No gradients anywhere, ever.</p>
+    </div></div>
+
+    <div class="num"><span class="n">03</span><div>
+      <h4>One strong element per frame</h4>
+      <p>The photography rule becomes the layout rule. If two things compete for the eye on one screen, one gets removed. This is the hardest constraint in the build and the single thing that keeps it from drifting into agency-template territory.</p>
+    </div></div>
+
+    <div class="num"><span class="n">04</span><div>
+      <h4>Type is a graphic object, not text</h4>
+      <p>Two sizes exist: <b>enormous</b> and <b>10px</b>. Display runs past the viewport edge, sits off-centre, set tight at −3% tracking. Labels sit at +30% tracking, quiet in the corners. Nothing lives in between. That gap <em>is</em> the layout system — District's off-balance poster logic, built into the grid.</p>
+    </div></div>
+
+    <div class="num"><span class="n">05</span><div>
+      <h4>The work opens before the copy</h4>
+      <p>Reel at scene 02. Work at scene 05. Explanation is the second act. The portfolio is the argument — STOM's reel-first logic, and the brand book's own website spec: <em>nothing competes with the work.</em></p>
+    </div></div>
+
+    <div class="num"><span class="n">06</span><div>
+      <h4>Microdrama is a place, not a service</h4>
+      <p>Its own colour, its own aspect ratio, its own scroll physics, its own route. Entering it should feel like leaving a website and opening a channel. It is the one owned category — it cannot sit in a row of three cards.</p>
+    </div></div>
+
+    <div class="num"><span class="n">07</span><div>
+      <h4>Production furniture, quietly</h4>
+      <p>A running timecode in one corner. A scene number in the other. A 3px Crimson rule as the only divider on the site. It reads as a <b>slate</b>, not as UI. Beyond that there is no chrome — no cards, no shadows, no borders that aren't structural.</p>
+    </div></div>
+
+    <div class="num"><span class="n">08</span><div>
+      <h4>The held shot</h4>
+      <p>At four moments the scroll resists and the frame holds one beat longer than expected. Straight from Section 11: <em>that extra beat is where the feeling lands.</em> Used four times. Not five — the fifth would make it a mannerism.</p>
+    </div></div>
+
+    <div class="num"><span class="n">09</span><div>
+      <h4>90% discipline, 10% bawaal — and the 10% is pre-allocated</h4>
+      <p>Five moments, counted: <b>the aperture cold open</b> · <b>the whip pan into POST</b> · <b>the Crimson manifesto slam</b> · <b>the vertical microdrama object</b> · <b>the day-mode inversion inside a case study</b>. Anything else that asks to be unexpected gets cut. Chaos with intent means someone is counting.</p>
+    </div></div>
+
+    <div class="num"><span class="n">10</span><div>
+      <h4>It has to be beautiful with zero assets</h4>
+      <p>The placeholder state is designed as a real state — frame outlines, grain, a slate label, a visible filename. On day one with no client films the site still reads as a studio holding its frames back, never as a broken template. Assets drop in later without a redesign.</p>
+    </div></div>
+
+    <div class="flag">
+      <span class="label gold">Note on references</span>
+      <p style="margin:0">DNEG, STOM, Red Bull, Cash App, District and A24 are used exactly as the brand book intends — as <em>design intelligence</em>. Nothing is lifted. The one place a reference becomes literal is the Crimson manifesto screen, and that's because your own Story Template B already specifies it: <em>full-bleed Crimson, white typography only, zero images — the colour IS the message.</em></p>
+    </div>
+  </section>
+
+  <!-- ============ B ============ -->
+  <section id="b">
+    <div class="sechead">
+      <span class="idx">B</span>
+      <div>
+        <h2 class="l">Site Architecture</h2>
+        <p class="lead" style="margin-top:14px">Five routes. The home page carries the film; everything else exists because the film can't hold it.</p>
+      </div>
+    </div>
+
+    <div class="tree">/                     <b>THE FILM</b>        one continuous scroll, scenes 00–11
+/work                 <b>THE INDEX</b>       WORK / 2026 · editorial filter, full-bleed frames
+/work/[slug]          <b>CASE STUDY</b>      film-first · day-mode process block
+/microdramas          <b>THE CHANNEL</b>     vertical, snap-scrolled, its own identity
+404                   <b>MISSING FRAME</b>   black · "CUT." · one link home</div>
+
+    <h3 class="m" style="margin:clamp(38px,5vw,60px) 0 6px">The Cut List</h3>
+    <p style="margin-bottom:20px">Every scene's colour mode is one of the five approved pairings. Nothing improvised.</p>
+
+    <div class="scroller">
+    <table>
+      <thead><tr><th>Scene</th><th>Name</th><th>Colour mode</th><th>Edit in</th></tr></thead>
+      <tbody>
+        <tr><td>00</td><td>Cold Open</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#D72638"></i></span> Black · one Crimson point</td><td>—  first frame</td></tr>
+        <tr><td>01</td><td>Hero</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i><i class="chip" style="background:#D72638"></i></span> Black + White + Crimson</td><td>Aperture iris</td></tr>
+        <tr><td>02</td><td>Showreel</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i></span> Black + White</td><td>Contract to frame</td></tr>
+        <tr><td>03A</td><td>Production</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i></span> Black + White</td><td>Cut to black</td></tr>
+        <tr><td>03B</td><td>Post</td><td><span class="chips"><i class="chip" style="background:#10102A"></i><i class="chip" style="background:#F5F0EB"></i><i class="chip" style="background:#C9A84C"></i></span> Midnight Navy + White + Gold</td><td><b style="color:var(--crimson)">Whip pan</b></td></tr>
+        <tr><td>03C</td><td>Microdrama card</td><td><span class="chips"><i class="chip" style="background:#D72638"></i><i class="chip" style="background:#F5F0EB"></i></span> Crimson + White only</td><td>Slam cut</td></tr>
+        <tr><td>04</td><td>Microdrama</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#D72638"></i></span> Black + Crimson</td><td>Aperture iris</td></tr>
+        <tr><td>05</td><td>Selected Work</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i></span> Black + White</td><td>Cut to black</td></tr>
+        <tr><td>06</td><td>How We Make Bawaal</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F4A261"></i></span> Black + Ember Amber</td><td>Cut on motion</td></tr>
+        <tr><td>07</td><td>The People</td><td><span class="chips"><i class="chip" style="background:#10102A"></i><i class="chip" style="background:#F5F0EB"></i><i class="chip" style="background:#F4A261"></i></span> Navy + White + Amber</td><td>Cut</td></tr>
+        <tr><td>08</td><td>Manifesto</td><td><span class="chips"><i class="chip" style="background:#D72638"></i><i class="chip" style="background:#F5F0EB"></i></span> Crimson + White only</td><td><b style="color:var(--crimson)">Slam cut</b></td></tr>
+        <tr><td>09</td><td>Collaborators</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i></span> Black + White</td><td>Cut to black</td></tr>
+        <tr><td>10</td><td>Contact</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i><i class="chip" style="background:#D72638"></i></span> Black + White + Crimson</td><td>Iris</td></tr>
+        <tr><td>11</td><td>End Slate</td><td><span class="chips"><i class="chip" style="background:#0A0A0A"></i><i class="chip" style="background:#F5F0EB"></i><i class="chip" style="background:#C9A84C"></i></span> Black + White + Gold</td><td>Fade to black</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="m" style="margin:clamp(38px,5vw,60px) 0 10px">Navigation</h3>
+    <p>Five words, 10px, +30% tracking, top right: <b>WORK · MAKE · MICRODRAMAS · STUDIO · CONTACT</b>. White and transparent on the hero; solid <code>#0A0A0A</code> after 60vh, transitioning over 300ms — exactly as the brand book's website spec says. Logo top-left, white, always.</p>
+    <p>Mobile does <b>not</b> get a hamburger. It gets the word <b>MENU</b>, which opens a full-screen black overlay through an aperture iris — five words at Display M, stacked, one tap target each. The nav is the only place the iris appears outside a scene transition, because opening the menu <em>is</em> opening a lens.</p>
+  </section>
+
+  <!-- ============ C ============ -->
+  <section id="c">
+    <div class="sechead">
+      <span class="idx">C</span>
+      <div>
+        <h2 class="l">Scene By Scene</h2>
+        <p class="lead" style="margin-top:14px">What you see, what happens, what it costs in seconds.</p>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 00</span><h3 class="m">Cold Open</h3><span class="mode">Black · 3.2s · skippable</span></div>
+      <ul class="beats">
+        <li>Black. <b>400ms of nothing.</b> Not a spinner, not a progress bar, not a percentage. A real cold open has the nerve to make you wait.</li>
+        <li>One point of Crimson light, 6px, dead centre. It breathes once — the dot of light in the aperture, Section 05.</li>
+        <li>The <b>aperture opens</b> around it: the B-mark's counter form scaled to the viewport, <code>clip-path</code> circle, 900ms on the cut easing. Grain rises 0 → 10% as it opens.</li>
+        <li>Through the aperture: the reel, <b>already running, already mid-frame</b>. In medias res — never over-set-up.</li>
+        <li>Wordmark resolves at 1.4s. Holds 600ms. Then the statement slams in, second line 80ms behind the first:<br><b>WE DON'T MAKE ADS. / WE MAKE BAWAAL.</b></li>
+        <li><b>Cut to black.</b> 120ms. You are at the hero.</li>
+        <li>Skippable on any input. Runs once per session; returning visitors get a 600ms iris only. Reduced motion gets a 400ms crossfade with no iris and static grain.</li>
+        <li>Sound stays off. A 10px <b>SOUND ON</b> toggle sits bottom-right. Audio never autoplays — it's an accessibility failure and a trust failure in the same gesture.</li>
+      </ul>
+      <div class="cut">Cut to black <span>—</span> 120ms</div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 01</span><h3 class="m">Hero</h3><span class="mode">100vh · reel-dominant</span></div>
+      <ul class="beats">
+        <li>Full-viewport reel, muted, looped, Bawaal Signature Grade baked in, 10% grain over it.</li>
+        <li>Type sits on the <b>lower third, left-anchored</b> — never centred. Display XL, −3.5% tracking, optically bleeding 0.04em past the left margin so it feels printed rather than placed.</li>
+        <li>Bottom right: <b>PRODUCTION · POST · MICRODRAMAS</b> at 10px, and a live timecode <code>00:00:14:08</code> ticking against the reel.</li>
+        <li>No scroll chevron. No "scroll to explore." A bouncing arrow is the most template-shaped object on the internet. <b>The running timecode is the invitation</b> — something is playing, and you want to see more of it.</li>
+      </ul>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 02</span><h3 class="m">Showreel</h3><span class="mode">Pinned · held shot ①</span></div>
+      <ul class="beats">
+        <li>The hero doesn't scroll away — <b>it contracts</b>. The full-bleed video insets to a 16:9 frame with a 12vw margin of pure black. Frame within a frame: it literally becomes a cinema screen inside a dark room.</li>
+        <li>Around it, two labels and nothing else: <b>SHOWREEL / 2026</b> top-left of the frame, <b>01 / 07</b> bottom-right.</li>
+        <li>Scroll inside the pin <b>scrubs the reel</b> through seven chapters. Each chapter title appears bottom-left for 800ms, then leaves. You learn the studio's range without reading a services list.</li>
+        <li>Cursor over the frame becomes a Crimson dot reading <b>PLAY</b>. Click unmutes and expands back to full bleed.</li>
+        <li><b>Held shot:</b> the pin holds one extra beat at chapter 07 before releasing.</li>
+      </ul>
+      <div class="cut">Cut to black <span>—</span> 240ms hold, label only: <span>01 / PRODUCTION</span></div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 03A</span><h3 class="m">Production</h3><span class="mode">100vh · full-bleed</span></div>
+      <ul class="beats">
+        <li>Full-bleed production footage — cameras, sets, monitors, crew, real BTS. Motivated light, hard sources, practicals in frame.</li>
+        <li>Type: <b>FROM FIRST IDEA / TO FINAL FRAME.</b> Display XL, breaking the right edge of the viewport.</li>
+        <li>The capability list is <b>not cards</b>. It is one line of 10px labels along the bottom edge, like a slate strip:<br><span class="ph" style="margin-top:8px">Brand Films · TVCs · Commercials · YouTube · Campaign Films · Shoot Production</span><br>Reads in one second. Occupies no attention. Cards would have cost the whole scene.</li>
+      </ul>
+      <div class="cut">Whip pan <span>—</span> 260ms, horizontal, motion blur present</div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 03B</span><h3 class="m">Post</h3><span class="mode">Navy + Gold · pinned · 4 states</span></div>
+      <ul class="beats">
+        <li>The only whip pan on the site lands here. Everything goes <b>Midnight Navy</b> — the register changes, and you feel it before you read anything.</li>
+        <li><b>One frame is held</b> and scroll drives four states on that same frame:</li>
+        <li><b>① RAW</b> — flat, ungraded, log-flat and lifeless.</li>
+        <li><b>② GRADE</b> — the Bawaal Signature Grade lands over 700ms. The six parameters print themselves into the left margin in Gold, 10px, as they apply: <code>lift · gamma · gain · sat −10 · grain 10% · S-curve</code>.</li>
+        <li><b>③ CUT</b> — the frame hard-cuts to the next shot. One frame. No transition. That's the point.</li>
+        <li><b>④ SOUND</b> — a waveform draws in Gold along the bottom edge, and the next frame's motion <b>starts three frames before</b> its visual cut. Sound leads picture, Section 11, implemented literally.</li>
+        <li>Copy: <b>THE STORY CONTINUES / AFTER THE SHOOT.</b></li>
+        <li>This is the one place technical precision is the flex — and the reason it doesn't become a software demo is that you never see a UI. You only see the film changing.</li>
+      </ul>
+      <div class="cut">Slam cut <span>—</span> to full-bleed Crimson</div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 03C</span><h3 class="m">Microdrama — Title Card</h3><span class="mode">Crimson · 600ms</span></div>
+      <ul class="beats">
+        <li>Full-bleed <code>#D72638</code>. White type only. One word: <b>MICRODRAMA</b>. Holds 600ms. Cuts to black.</li>
+        <li>That is the entire card. Story Template B: <em>the colour IS the message.</em> Six hundred milliseconds of Crimson does more positioning work than a paragraph would.</li>
+      </ul>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 04</span><h3 class="m">Microdrama Experience</h3><span class="mode">Signature · held shot ②</span></div>
+      <ul class="beats">
+        <li>Black void. A <b>9:16 frame irises in</b>, centred, 62vh tall on desktop. It is treated as a physical object: a 1px Studio White frame at 40%, a hairline Crimson rule above it, <b>EP. 01</b> set <em>outside</em> the frame's top-left corner like a slate marking.</li>
+        <li>To the left, oversized and clipped by the viewport edge:<br><b>90 SECONDS. / ONE DECISION. / EVERYTHING CHANGES.</b></li>
+        <li>Scroll moves episodes through the centre with slight z-depth. EP.01 exits down-left as EP.02 arrives from below, label staggered 40ms behind the frame. <b>No carousel dots.</b> Ever.</li>
+        <li>Hover: audio fades up, logline appears below the frame at 12px, runtime in the corner.</li>
+        <li><b>Mobile is better than desktop here, on purpose.</b> The frame goes full-bleed — the phone <em>is</em> the frame. Snap-scroll episode to episode, tap for sound. This is the one section designed mobile-first and adapted upward.</li>
+        <li><b>Held shot:</b> the last episode holds a beat before the scene releases.</li>
+      </ul>
+      <div class="cut">Cut to black <span>—</span> label: <span>SELECTED WORK / 2026</span></div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 05</span><h3 class="m">Selected Work</h3><span class="mode">Largest scene · 100vh per project</span></div>
+      <ul class="beats">
+        <li>No grid. A vertical sequence of full-bleed frames, one viewport each, <b>alternating format so the rhythm never settles</b>:</li>
+        <li><b>P01</b> 16:9 full-bleed video · <b>P02</b> 4:5 still right-aligned at 62% width, enormous negative space left carrying the type · <b>P03</b> 9:16 vertical centred in black void · <b>P04</b> full-bleed video, edge to edge, type overlaid low.</li>
+        <li>Metadata lives at 10px bottom-left, always present at 40% opacity. On hover it goes to 100%, the title slams in at Display M, and the image scales 1.00 → 1.04 over 800ms. Images breathe slower than type — Section 09, exactly.</li>
+        <li>Cursor becomes <b>VIEW</b>.</li>
+        <li><b>Filtering is an edit, not a filter.</b> A 10px strip rotated 90° along the left edge: ALL / BRAND FILMS / TVCS / MICRODRAMAS / YOUTUBE / POST. Selecting one doesn't fade and reflow — non-matching frames are <b>gone in one frame</b>. It reads editorial, never e-commerce.</li>
+        <li>A fixed <b>WORK / 2026</b> label sits bottom-left of the viewport throughout the scene.</li>
+      </ul>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 06</span><h3 class="m">How We Make Bawaal</h3><span class="mode">Amber · pinned horizontal</span></div>
+      <ul class="beats">
+        <li>Warmth mode — the site's only Ember Amber moment besides the faces, placed deliberately <em>just before</em> the faces.</li>
+        <li>A pinned horizontal timeline: <b>01 IDEA → 02 PRE-PRODUCTION → 03 PRODUCTION → 04 POST → 05 FINAL CUT.</b> Vertical scroll drives horizontal travel.</li>
+        <li>As each stage centres: its BTS still cuts in behind at 20% opacity, the stage number scales from 10px to Display L, one line of copy enters at 200ms.</li>
+        <li>A 1px Amber rule runs the bottom edge as the scrubber — the only progress indicator on the site, and it's a timeline, so it earns its place.</li>
+        <li>The argument being made without stating it: <em>we are in this from the first idea, not from the shoot day.</em></li>
+      </ul>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 07</span><h3 class="m">The People</h3><span class="mode">Midnight Navy · per brand book §14</span></div>
+      <ul class="beats">
+        <li><b>FIVE FRIENDS. / ONE OBSESSION.</b> Display XL, off-centre, clipping the top edge.</li>
+        <li>Five portraits in an <b>intentionally uneven row</b> — varying heights and vertical offsets. Not a five-column grid. The off-balance is the point; a tidy row would say "leadership team."</li>
+        <li>Hover: the portrait <b>cuts</b> to a second frame — one frame, no crossfade — the crop shifts up 2%, role appears in Crimson 10px caps, personal line in 12px below.</li>
+        <li>One line of founding story sits small in the corner, pulled from your own brand book: <em>"Not born in a boardroom. Born in arguments over chai."</em></li>
+        <li>Restraint here is the whole job. Over-animate this section and it becomes a corporate About page with better fonts.</li>
+      </ul>
+      <div class="cut">Slam cut <span>—</span> full-bleed Crimson</div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 08</span><h3 class="m">Manifesto</h3><span class="mode">Crimson + White only · held shot ③</span></div>
+      <ul class="beats">
+        <li>Full-bleed <code>#D72638</code>. White type only. Zero images. Story Template B, at full scale.</li>
+        <li>One statement at a time, Display XL, filling the screen:<br><b>WE REFUSE SAFE CHOICES. → WE REFUSE FORGETTABLE WORK. → WE REFUSE TO BE JUST A VENDOR. → WE MAKE CULTURE.</b></li>
+        <li>Each enters in 200ms, holds, exits in 200ms. <b>Between statements: one frame of black.</b> Crimson → black → Crimson. Four frames of flicker across the whole scene — the most aggressive thing on the site, and it's over before it becomes a gimmick.</li>
+        <li>Contrast: white on Crimson is 5.8:1 — AA, and it's large display type throughout. Verified against your own accessibility table.</li>
+        <li>Then cut to black, and the site goes quiet again. The silence after is what makes the Crimson land.</li>
+      </ul>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 09</span><h3 class="m">Collaborators</h3><span class="mode">Black + White · freeze frame</span></div>
+      <ul class="beats">
+        <li><b>PEOPLE WE'VE MADE THINGS WITH.</b></li>
+        <li>Not a logo wall. Client names set as <b>type</b>, Body Large, in a slow horizontal marquee at 20px/s.</li>
+        <li>Hover a name: the marquee <b>stops dead</b> — a freeze frame — the name goes Crimson, and a film still cuts in full-bleed behind at 30% opacity with the project title at 10px.</li>
+        <li>Names-as-type solves two problems at once: it obeys "no giant logo wall," and it looks <b>equally intentional with three clients or thirty</b>. Logos are used only if supplied, only in mono white.</li>
+        <li><b>Contingency:</b> with no client roster yet, the section becomes <b>SELECTED COLLABORATORS</b> — DOPs, colourists, composers, editors who worked on the films. Real names, real credits, nothing invented, section still full.</li>
+      </ul>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 10</span><h3 class="m">Contact</h3><span class="mode">Black + Crimson · maximum restraint</span></div>
+      <ul class="beats">
+        <li><b>GOT SOMETHING / WORTH MAKING?</b> Display XL, left-anchored, breaking the right edge.</li>
+        <li>One Crimson rule. <b>One field: email.</b> One square Crimson button, no radius: <b>LET'S MAKE BAWAAL →</b></li>
+        <li>Three 10px lines beneath: <code>HELLO@BAWAALSTUDIOS.COM</code> · <code>@BAWAALSTUDIOS</code> · <code>BANGALORE, INDIA · 12.9716° N, 77.5946° E</code></li>
+        <li>The coordinates are the Bangalore signal — no autorickshaw, no Vidhana Soudha, no filter-coffee cliché. A location expressed the way a production slate would express it.</li>
+      </ul>
+      <div class="cut">Fade to black <span>—</span> 600ms</div>
+    </div>
+
+    <div class="scene">
+      <div class="top"><span class="sn">Scene 11</span><h3 class="m">End Slate</h3><span class="mode">Brand book §14, verbatim</span></div>
+      <ul class="beats">
+        <li><b>Three seconds. Black. White logo centred. Gold tagline below. No other elements.</b> That is the specification and it is already perfect — it becomes the footer.</li>
+        <li>Legal, privacy, credits sit at 9px / 20% opacity, surfacing only on hover near the bottom edge. They exist; they don't intrude on the last frame.</li>
+        <li>The final thing anyone sees: the wordmark, and <span style="color:var(--gold)">We Don't Make Ads. We Make Bawaal.</span> in Gold Thread. Then nothing.</li>
+      </ul>
+    </div>
+
+    <h3 class="m" style="margin:clamp(44px,6vw,72px) 0 12px">Case Study — <span style="color:var(--w40)">/work/[slug]</span></h3>
+    <ul class="beats">
+      <li>Opens on the film, full-bleed, muted autoplay, title slam. No page header, no breadcrumb.</li>
+      <li>Metadata strip at 10px: <b>CLIENT · CATEGORY · YEAR · RUNTIME · ROLE.</b></li>
+      <li>Description capped at <b>three sentences, 62ch</b>. If there's more to say, the film failed.</li>
+      <li><b>SELECTED FRAMES</b> — full-bleed stills, one per viewport, no captions.</li>
+      <li><b>PROCESS — the lights come up.</b> Day mode: Studio White <code>#F5F0EB</code> ground, Midnight Navy type, Crimson highlights. The only light screen in the entire site, landing exactly where sustained reading happens. It feels like house lights after a screening — and it's an approved pairing your brand book assigns to editorial long-form. This is unexpected moment #5.</li>
+      <li><b>BTS</b> stays in day mode, warm. <b>FINAL FILM</b> cuts back to black, full-bleed.</li>
+      <li><b>NEXT PROJECT</b> — full-bleed still of the next film with its title. The entire viewport is the link. You never return to an index; you keep watching.</li>
+    </ul>
+  </section>
+
+  <!-- ============ D ============ -->
+  <section id="d">
+    <div class="sechead">
+      <span class="idx">D</span>
+      <div>
+        <h2 class="l">Motion System</h2>
+        <p class="lead" style="margin-top:14px">Four transitions. Two easings. Everything moves with weight; nothing bounces.</p>
+      </div>
+    </div>
+
+    <div class="scroller">
+    <table>
+      <thead><tr><th>Transition</th><th>Spec</th><th>Used</th></tr></thead>
+      <tbody>
+        <tr><td>Cut to black</td><td>80ms to black · 160–240ms hold · reveal on <code>--ease-cut</code>. A real cut is one frame — the hold is the punctuation, not the fade.</td><td>5 boundaries</td></tr>
+        <tr><td>Aperture iris</td><td><code>clip-path: circle()</code> 0 → 150% · 900ms · <code>--ease-cut</code>. Grain ramps with it.</td><td>Cold open, microdrama entry, contact, mobile menu</td></tr>
+        <tr><td>Whip pan</td><td>260ms translateX + <code>filter: blur()</code> on the X axis, blur peaks mid-move and resolves to zero.</td><td><b>Once.</b> Production → Post</td></tr>
+        <tr><td>Freeze frame + text</td><td>Video pauses, grain steps up 4%, label slams in at 120ms, holds, resumes.</td><td>Collaborators hover, work hover</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="scroller" style="margin-top:34px">
+    <table>
+      <thead><tr><th>Token</th><th>Value</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>--ease-cut</td><td><code>cubic-bezier(.83, 0, .17, 1)</code></td><td>Weighted ease-in-out · §09</td></tr>
+        <tr><td>--ease-breathe</td><td><code>cubic-bezier(.33, 1, .68, 1)</code></td><td>Image movement, slower out</td></tr>
+        <tr><td>Text in / out</td><td><b>200ms</b></td><td>"Text enters fast, holds, exits fast"</td></tr>
+        <tr><td>Image movement</td><td><b>600–800ms</b></td><td>"Images breathe slower"</td></tr>
+        <tr><td>Stagger</td><td><b>80ms</b></td><td>§09, exact</td></tr>
+        <tr><td>Sound leads picture</td><td><b>−100ms</b></td><td>Incoming type begins 100ms before the black clears — the web translation of "audio runs 2–4 frames ahead"</td></tr>
+        <tr><td>Grain</td><td><b>8–12%</b>, stepped at <b>8–12fps</b></td><td>§09 · stepped, never smooth — smooth noise shimmers and reads as CSS, not film</td></tr>
+        <tr><td>Held shot</td><td><b>+1 beat</b> × 4 across the site</td><td>§11</td></tr>
+        <tr><td>Bounce / spring / elastic</td><td><b>Zero. Anywhere.</b></td><td>§09 — "Nothing bounces or pops"</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="flag" style="margin-top:34px">
+      <span class="label gold">Reduced motion — a real design, not a switch</span>
+      <p style="margin:0">Under <code>prefers-reduced-motion</code>: the iris becomes a 400ms fade, cuts become 200ms fades, the whip pan becomes a straight cut, pinning releases into normal document flow, grain freezes at a single static frame, videos hold on poster frames with a visible play control. The site stays <em>cinematic</em> because darkness, scale and composition were carrying it — not the animation. That's the test of whether the direction is real.</p>
+    </div>
+  </section>
+
+  <!-- ============ E ============ -->
+  <section id="e">
+    <div class="sechead">
+      <span class="idx">E</span>
+      <div>
+        <h2 class="l">Responsive Strategy</h2>
+        <p class="lead" style="margin-top:14px">Mobile is designed, not derived. One section is mobile-first and adapted upward.</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <span class="label crimson">Desktop · 1280+</span>
+        <p style="margin-top:12px">Horizontal negative space carries the composition. Custom cursor active (VIEW / PLAY / EXPLORE). Full scroll choreography — pinning, scrubbing, horizontal timeline. Vertical microdrama sits as an object in a void. Type runs past both edges.</p>
+      </div>
+      <div>
+        <span class="label crimson">Tablet · 768–1279</span>
+        <p style="margin-top:12px">Pinning reduced to two scenes (reel, post). Horizontal timeline becomes a vertical one. Full-bleed frames survive intact. Cursor off, hover states become always-on at 60% opacity. Work metadata permanently visible.</p>
+      </div>
+      <div>
+        <span class="label crimson">Mobile · &lt;768</span>
+        <p style="margin-top:12px">Microdrama goes <b>full-bleed and snap-scrolled</b> — the phone is the frame, and this scene is better here than on desktop. Work frames stack full-bleed with permanent metadata (there is no hover on a phone; designing for it is designing for nobody). Nav is MENU → aperture overlay. Cursor off. One video decodes at a time.</p>
+      </div>
+      <div>
+        <span class="label crimson">Type on small screens</span>
+        <p style="margin-top:12px">Display does <b>not</b> shrink proportionally. Display XL clamps at 44px minimum and still breaks the viewport edge. Body never drops below 16px. Labels stay 10px at +30% tracking. Touch targets ≥ 44px. Timid mobile type would undo the entire direction.</p>
+      </div>
+    </div>
+
+    <h3 class="m" style="margin:clamp(38px,5vw,56px) 0 10px">Performance — the constraint that keeps it premium</h3>
+    <ul class="beats">
+      <li><b>Poster-first, always.</b> Every video renders as a graded poster frame; the source attaches only when an IntersectionObserver says it's within one viewport.</li>
+      <li><b>One video decoding at a time.</b> Entering a scene pauses and detaches the previous one. Ten simultaneous videos is how cinematic sites become unusable on a mid-range Android.</li>
+      <li><b>Preload only the hero reel</b>, and only its first ~3 seconds. Everything downstream is lazy.</li>
+      <li><b>Adaptive streaming</b> (Mux or Cloudflare Stream) rather than self-hosted MP4s — a 40MB progressive file on a 4G connection in Bangalore defeats the entire premise. This is an open decision below.</li>
+      <li><b>Grain is one fixed layer</b>, not per-element — a single composited SVG/canvas overlay on the GPU. Per-section grain would multiply paint cost for identical output.</li>
+      <li>Transforms and opacity only. <code>content-visibility: auto</code> on off-screen scenes. AVIF/WebP with explicit dimensions — <b>zero layout shift</b>, which also means zero jump in a scene that's supposed to be a held frame.</li>
+      <li>Budget: <b>LCP &lt; 2.5s</b>, <b>CLS &lt; 0.05</b>, hero payload under 1.2MB before video streams.</li>
+    </ul>
+  </section>
+
+  <!-- ============ F ============ -->
+  <section id="f">
+    <div class="sechead">
+      <span class="idx">F</span>
+      <div>
+        <h2 class="l">Component Architecture</h2>
+        <p class="lead" style="margin-top:14px">Next.js · TypeScript · Tailwind · GSAP ScrollTrigger · Lenis. Five dependencies, each with a reason.</p>
+      </div>
+    </div>
+
+    <div class="scroller">
+    <table>
+      <thead><tr><th>Dependency</th><th>Why it's in</th></tr></thead>
+      <tbody>
+        <tr><td>Next.js (App Router)</td><td>Routing, image pipeline, streaming, static export of case studies</td></tr>
+        <tr><td>TypeScript</td><td>Content schemas are typed — a project missing a poster fails at build, not in front of a client</td></tr>
+        <tr><td>Tailwind</td><td>Brand tokens as the <em>only</em> available values. You physically cannot write an off-system colour or a border radius.</td></tr>
+        <tr><td>GSAP + ScrollTrigger</td><td>Pinning and scrubbing. Framer Motion cannot do the reel scrub or the horizontal timeline cleanly.</td></tr>
+        <tr><td>Lenis</td><td>Weighted scroll. "Everything moves with weight" is a brand rule, and native scroll has none.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="tree" style="margin-top:34px">app/
+  layout.tsx                 <i>grain · cursor · lenis · nav · timecode</i>
+  page.tsx                   <i>the film — scenes 00–11</i>
+  work/page.tsx              work/[slug]/page.tsx
+  microdramas/page.tsx       not-found.tsx
+
+components/
+  chrome/       <b>Navbar</b> · <b>CustomCursor</b> · <b>Timecode</b> · <b>FilmGrain</b> · <b>SoundToggle</b>
+  motion/       <b>ApertureReveal</b> · <b>CutToBlack</b> · <b>WhipPan</b> · <b>FreezeFrame</b>
+                <b>TypeSlam</b> · <b>StaggerLines</b> · <b>HeldShot</b> · <b>PageTransition</b>
+  primitives/   <b>SceneLabel</b> · <b>EdgeType</b> · <b>RuledLine</b> · <b>FrameWithin</b>
+                <b>VideoFrame</b> <i>(poster → lazy source → single-decode)</i> · <b>AssetPlaceholder</b>
+  scenes/       <b>ColdOpen</b> · <b>Hero</b> · <b>Showreel</b> · <b>ServiceChapter</b>
+                <b>PostGradeSequence</b> · <b>MicrodramaPlayer</b> · <b>ProjectShowcase</b>
+                <b>ProcessTimeline</b> · <b>TeamSection</b> · <b>Manifesto</b>
+                <b>ClientMarquee</b> · <b>ContactSection</b> · <b>EndSlate</b>
+  work/         <b>WorkIndex</b> · <b>WorkFilter</b> · <b>ProjectFrame</b> · <b>ProjectDetail</b> · <b>NextProject</b>
+
+content/
+  projects.ts   microdramas.ts   team.ts   clients.ts
+  process.ts    manifesto.ts     site.ts   <i>— all typed, all swappable</i>
+
+lib/
+  motion.ts     <i>easings, durations, stagger — single source</i>
+  colour.ts     <i>the five approved pairings as named scene modes</i>
+  media.ts      <i>poster/source resolution, single-decode registry</i>
+
+public/assets/
+  work/  microdramas/  team/  bts/  clients/  reel/  brand/</div>
+
+    <p style="margin-top:26px">Every scene reads from <code>content/</code>. Replacing a placeholder is editing one object — never touching markup:</p>
+    <div class="tree" style="border-left-color:var(--gold)">{ slug: "project-01",
+  title: "", client: "", category: "brand-film",
+  year: 2026, runtime: "",
+  poster: "/assets/work/project-01.jpg",
+  video:  "/assets/work/project-01.mp4",
+  aspect: "16:9",  stills: [],  description: "",
+  credits: { director: "", dop: "", colourist: "" } }</div>
+  </section>
+
+  <!-- ============ COLOUR + TYPE PROOF ============ -->
+  <section>
+    <div class="sechead">
+      <span class="idx">—</span>
+      <div><h2 class="l">The System, Rendered</h2>
+      <p class="lead" style="margin-top:14px">Tokens taken directly from Section 07 and 08. This page is set in them.</p></div>
+    </div>
+
+    <div class="sw">
+      <div><div class="box" style="background:#0A0A0A"></div><div class="nm">Bawaal Black</div><div class="hx">#0A0A0A</div><div class="use">Ground state. 9 of 12 scenes.</div></div>
+      <div><div class="box" style="background:#F5F0EB"></div><div class="nm">Studio White</div><div class="hx">#F5F0EB</div><div class="use">All type. Warm, not optical white.</div></div>
+      <div><div class="box" style="background:#D72638"></div><div class="nm">Bawaal Crimson</div><div class="hx">#D72638</div><div class="use">Rules, one CTA, two full-bleed moments.</div></div>
+      <div><div class="box" style="background:#10102A"></div><div class="nm">Midnight Navy</div><div class="hx">#10102A</div><div class="use">Post + People only.</div></div>
+      <div><div class="box" style="background:#3D3D3D"></div><div class="nm">Dark Smoke</div><div class="hx">#3D3D3D</div><div class="use">Placeholder frames, disabled states.</div></div>
+      <div><div class="box" style="background:#C9A84C"></div><div class="nm">Gold Thread</div><div class="hx">#C9A84C</div><div class="use">Grade values. End slate. Twice.</div></div>
+      <div><div class="box" style="background:#F4A261"></div><div class="nm">Ember Amber</div><div class="hx">#F4A261</div><div class="use">Process + People warmth. Twice.</div></div>
+    </div>
+
+    <div style="margin-top:44px">
+      <span class="label">Display XL — 96–120pt · weight 900 · tracking −3.5%</span>
+      <div class="xl" style="margin:10px 0 26px">We Make Bawaal.</div>
+      <span class="label">Display L — 56–72pt</span>
+      <div class="l" style="margin:10px 0 26px">Five Friends. One Obsession.</div>
+      <span class="label">Display M — 36–44pt</span>
+      <div class="m" style="margin:10px 0 26px">The story continues after the shoot.</div>
+      <span class="label">Body Large — 24–28pt · 150% leading</span>
+      <div class="lead" style="margin:10px 0 26px">Ninety seconds, told with cinematic precision, doing what no thirty-second TVC ever did.</div>
+      <span class="label">Label — 9–11pt · ALL CAPS · +300 tracking</span>
+      <div style="margin:12px 0 0"><span class="label" style="color:var(--white)">Production · Post · Microdramas</span></div>
+    </div>
+  </section>
+
+  <!-- ============ G ============ -->
+  <section id="g">
+    <div class="sechead">
+      <span class="idx">G</span>
+      <div>
+        <h2 class="l">What I Need<br>From You</h2>
+        <p class="lead" style="margin-top:14px">The brand book is text-only — no vectors, no photography, no film. Everything below is missing. The build proceeds in placeholder mode without it; nothing here blocks starting.</p>
+      </div>
+    </div>
+
+    <div class="ask"><span class="n">01</span><div>
+      <span class="must">Blocking · nothing can substitute</span>
+      <h4>Logo master files</h4>
+      <p>Your own rules forbid recreating the mark from memory or a scan, so I won't. I need: <b>vertical lockup</b>, <b>horizontal lockup</b>, <b>B icon mark</b> (with the aperture counter), <b>BW monogram</b> — as <b>SVG</b>, in white and black, plus favicon/app-icon sizes. Until they arrive, every logo position renders a clearly-marked placeholder box reading <span class="ph" style="font-size:10px;padding:6px 10px">LOGO SVG PENDING</span> — visible, deliberate, one-line swap.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">02</span><div>
+      <span class="must">Blocking · licence required</span>
+      <h4>Neue Haas Grotesk web fonts</h4>
+      <p><b>Display: Black + Bold. Text: Regular + Medium.</b> As <code>.woff2</code>, with the web licence covering your expected pageviews. Without it the site runs on <b>Inter</b> — your own approved fallback — and the swap is one file plus one CSS line. Worth saying plainly: Inter is good, but the display type is carrying this entire design, and Neue Haas is visibly better at 104px.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">03</span><div>
+      <span class="must">Highest impact on the result</span>
+      <h4>The showreel</h4>
+      <p>One master cut, 16:9, graded. H.264 <b>and</b> WebM/AV1, at 1920 and 1280. A <b>poster frame</b> (the single best frame — your One Frame Rule). Plus: total runtime, and the <b>seven chapter marks with titles</b> for the scrub. If there are no chapters yet, give me the reel and I'll propose the marks.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">04</span><div>
+      <h4>Projects — 4 minimum, 6–8 ideal</h4>
+      <p>Per project: <b>title · client · category · year · runtime · credits</b>, one hero film (16:9 or 9:16) + poster, <b>3–6 graded stills</b>, 2–3 BTS stills, and <b>two or three sentences</b> of description. Not a case study — the film argues, the copy footnotes.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">05</span><div>
+      <h4>Microdramas — 4–8 episodes</h4>
+      <p>9:16, graded, with poster frames. Per episode: <b>series title · episode number · one-line logline · runtime</b>. If full episodes are too heavy, a 10–15s looping preview per episode plus a link out works and is faster.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">06</span><div>
+      <h4>Five founder portraits</h4>
+      <p>Shot to your own photography direction: motivated hard light, mid-motion, <b>eyes sharp</b>, no forced smiles, signature grade applied. <b>Two frames per person</b> — the hover is a cut between them, which needs two real frames, not one image filtered twice. Plus <b>name · role · one personal line</b> in their own words.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">07</span><div>
+      <h4>BTS library — 8–12 stills</h4>
+      <p>Ideally two per stage: idea, pre-production, production, post, final cut. Warm, candid, real. These carry Scene 06 and they're the section that makes the studio feel human rather than institutional.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">08</span><div>
+      <h4>Clients — and permission</h4>
+      <p>Names, mono-white SVG logos if you have them, and <b>written permission to display the work</b>. I will not invent a client relationship or use a logo you can't show. If the roster is thin right now, say so and Scene 09 ships as <b>SELECTED COLLABORATORS</b> — real crew credits — which reads honest and looks just as good.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">09</span><div>
+      <h4>Copy + contact details</h4>
+      <p>Confirm the real <b>email</b>, <b>Instagram handle</b>, and studio location line. Confirm the four manifesto statements. Everything else I'll write from the brand book's approved voice and send for approval — I won't invent claims about work you haven't done.</p>
+    </div></div>
+
+    <div class="flag" style="margin-top:36px">
+      <span class="label gold">Two things I found in the brand book that need your call</span>
+      <p><b>1 · Hero copy conflict.</b> Section 13 specifies the website hero as <em>"We make Microdramas. We engineer brand culture. We create Bawaal."</em> Your brief specifies <em>"WE DON'T MAKE ADS. WE MAKE BAWAAL."</em> Both are approved lines. My recommendation: the <b>tagline is the hero</b> — it's shorter, it's the brand's headline, and it works at Display XL where a three-line stack doesn't. The three-line version becomes the opening of Scene 03. Tell me if you'd rather flip it.</p>
+      <p style="margin-bottom:0"><b>2 · Version stamp.</b> The file is named v2.0 but the document footer and cover both read <em>Version 1.0</em>, and the roadmap lists "Brand book v2.0" as a Year 4 deliverable. Worth reconciling before this gets circulated — I've worked from the content, which is unambiguous either way.</p>
+    </div>
+  </section>
+
+  <!-- ============ DECISIONS ============ -->
+  <section>
+    <div class="sechead">
+      <span class="idx">↓</span>
+      <div><h2 class="l">Open Decisions</h2>
+      <p class="lead" style="margin-top:14px">Three calls that change the build. I have a recommendation on each — say "go" and I'll take the defaults.</p></div>
+    </div>
+
+    <div class="ask"><span class="n">01</span><div>
+      <h4>Video hosting</h4>
+      <p><b>Recommended: Mux or Cloudflare Stream.</b> Adaptive bitrate, automatic poster extraction, real analytics. Self-hosted MP4s in <code>/public</code> will work for a demo and will hurt on Indian mobile networks the moment the reel is over ~15MB.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">02</span><div>
+      <h4>The cold open, on every visit?</h4>
+      <p><b>Recommended: once per session</b> (sessionStorage), 600ms iris for returning visitors, skippable on any input always. A 3.2-second opening is a gift the first time and a toll booth the fourth.</p>
+    </div></div>
+
+    <div class="ask"><span class="n">03</span><div>
+      <h4>Build order</h4>
+      <p><b>Recommended:</b> ship the full film in placeholder mode first — every scene, every transition, real motion, elegant placeholders — so you can <em>feel</em> it and direct it before a single asset is finalised. Assets then drop into <code>content/</code> with no redesign. The alternative is waiting on the reel, and the reel will take longer than the site.</p>
+    </div></div>
+  </section>
+
+  <div class="endslate">
+    <div>
+      <div class="l" style="letter-spacing:.02em">Bawaal<br><span style="font-size:.42em;letter-spacing:.34em;display:inline-block;margin-top:.6em">Studios</span></div>
+      <div class="tag">We Don't Make Ads. We Make Bawaal.</div>
+      <div class="label" style="margin-top:30px">Creative Direction · v1 · Awaiting sign-off</div>
+    </div>
+  </div>
+
+</div>
